@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ufolint-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ufolint-{{ version }}.tar.gz
   sha256: 5578c2a17949b33e9a9d2d069849f7a83ca82b5f0a3d35bef8d24668be95bbe7
 
 build:
@@ -14,16 +14,16 @@ build:
     - ufolint = ufolint.app:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - commandlines
     - fonttools >=4.18.0
-    - python >=3.6
+    - python >={{ python_min }}
     - fs
 
 test:
@@ -34,6 +34,7 @@ test:
     - ufolint --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/source-foundry/ufolint
